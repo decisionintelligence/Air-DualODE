@@ -1,6 +1,6 @@
 # Air-DualODE
 
-This repository contains the PyTorch implementation of our ICLR'25 paper, **“Air Quality Prediction with Physics-Informed Dual Neural ODEs in Open Systems.”** In this work, we introduce **Air-DualODE** for predicting air quality at both city and national levels. Our model is composed of three key components: **Physics Dynamics, Data-Driven Dynamics,** and **Dynamics Fusion.**
+This repository contains the PyTorch implementation of our ICLR'25 paper, **“Air Quality Prediction with Physics-Guided Dual Neural ODEs in Open Systems.”** In this work, we introduce **Air-DualODE** for predicting air quality at both city and national levels. Our model is composed of three key components: **Physics Dynamics, Data-Driven Dynamics,** and **Dynamics Fusion.**
 
 🚩 News (2025.1) Air-DualODE has been accepted by ICLR 2025 (poster).
 
