@@ -1,0 +1,93 @@
+log_base_dir: ./logs
+to_log_file: True
+to_stdout: True
+TB_dir: False
+checkpoints: ./checkpoints
+log_level: INFO
+model_name: Air-DualODE
+
+data:
+  batch_size: 64
+  interval: '3h'
+  data_name: KnowAir
+  root_path: ../dataset/KnowAir
+  num_workers: 0
+  normalized_columns: [ 0, 1, 2, 3, 4, 5 ]
+  embed: 0
+
+model:
+  seq_len: 24
+  horizon: 24
+  input_dim: 6
+  embed_dim: 6
+  X_dim: 1
+
+  embedding:
+    hour2day: 4
+    day2week: 3
+    day2month: 4
+    month2year: 3
+    station: 4
+
+  phy_func:
+    enable: True
+    # gnn para in phy_func
+    knowledge: diff_adv
+    gnn_layers: 3
+    cheb_k: 3
+    gnn_hid_dim: 64
+    coeff_estimator: False
+    rnn_layers: 1
+    rnn_dim: 64
+    input_dim: 1
+    latent_dim: 64
+    ode_method: dopri5
+    odeint_atol: 1e-2
+    odeint_rtol: 1e-2
+    adjoint: True
+
+  unk_func:
+    enable: True
+    rnn_layers: 1
+    rnn_dim: 64
+    input_dim: 6
+    latent_dim: 64
+    n_heads: 4
+    d_f: 32
+    ode_method: rk4
+    odeint_atol: 1e-4
+    odeint_rtol: 1e-4
+    adjoint: True
+
+  fusion:
+    latent_dim: 64
+    output_dim: 64
+    num_layers: 3
+    gnn_type: 'GCN'
+
+  decoder:
+    enable: True
+
+  loss:
+    kl_loss: False
+    recon_loss: False
+    pred_loss: True
+    cl_loss: True
+    cl_coeff: 5
+    criterion: mae
+
+train:
+  lr: 0.005
+  lradj: 'default'
+  epochs: 100
+  pct_start: 0.4
+  patience: 20
+  steps: [20, 30, 40, 50]
+  lr_decay_ratio: 0.1
+  log_every: 1
+
+GPU:
+  use_gpu: True
+  gpu: 0
+  use_multi_gpu: False
+  devices: '0, 1, 2, 3'

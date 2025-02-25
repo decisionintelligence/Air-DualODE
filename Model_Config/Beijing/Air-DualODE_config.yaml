@@ -1,0 +1,92 @@
+log_base_dir: ./logs
+to_log_file: True
+to_stdout: True
+TB_dir: False
+checkpoints: ./checkpoints
+log_level: INFO
+model_name: Air-DualODE
+
+data:
+  batch_size: 32
+  interval: '3h'
+  data_name: Beijing1718
+  root_path: ../dataset/Beijing1718
+  num_workers: 0
+  normalized_columns: [ "PM2.5", "temperature", "pressure", "humidity", "wind_speed", "wind_direction" ]
+  embed: 0
+
+model:
+  seq_len: 24
+  horizon: 24
+  input_dim: 6
+  embed_dim: 6
+  X_dim: 1
+
+  embedding:
+    hour2day: 3
+    day2week: 2
+    day2month: 3
+    month2year: 2
+    station: 3
+
+  phy_func:
+    enable: True
+    knowledge: diff_adv
+    gnn_layers: 2
+    cheb_k: 3
+    gnn_hid_dim: 64
+    coeff_estimator: False
+    rnn_layers: 1
+    rnn_dim: 64
+    input_dim: 1
+    latent_dim: 64
+    ode_method: dopri5
+    odeint_atol: 1e-3
+    odeint_rtol: 1e-3
+    adjoint: False
+
+  unk_func:
+    enable: True
+    rnn_layers: 1
+    rnn_dim: 64
+    input_dim: 6
+    latent_dim: 64
+    n_heads: 2
+    d_f: 32
+    ode_method: rk4
+    odeint_atol: 1e-3
+    odeint_rtol: 1e-3
+    adjoint: False
+
+  fusion:
+    latent_dim: 128
+    output_dim: 128
+    num_layers: 3
+    gnn_type: 'GCN'
+
+  decoder:
+    enable: True
+
+  loss:
+    kl_loss: False
+    recon_loss: False
+    cl_loss: True
+    pred_loss: True
+    cl_coeff: 1
+    criterion: mae
+
+train:
+  lr: 0.005
+  lradj: 'default'
+  epochs: 100
+  pct_start: 0.4
+  patience: 20
+  steps: [20, 30, 40, 50]
+  lr_decay_ratio: 0.1
+  log_every: 1
+
+GPU:
+  use_gpu: True
+  gpu: 0
+  use_multi_gpu: False
+  devices: '0, 1, 2, 3'
