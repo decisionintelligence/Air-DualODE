@@ -46,7 +46,7 @@ If you find this repo useful, please cite our paper.
 
 ```
 @article{tian2024air-dualode,
-  title={Air quality prediction with physics-Guided dual neural odes in open systems},
+  title={Air quality prediction with Physics-Guided dual neural odes in open systems},
   author={Tian, Jindong and Liang, Yuxuan and Xu, Ronghui and Chen, Peng and Guo, Chenjuan and Zhou, Aoying and Pan, Lujia and Rao, Zhongwen and Yang, Bin},
   journal={ICLR},
   year={2025}
