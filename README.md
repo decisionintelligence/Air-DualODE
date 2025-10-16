@@ -4,6 +4,8 @@ This repository contains the PyTorch implementation of our ICLR'25 paper, **“A
 
 🚩 News (2025.1) Air-DualODE has been accepted by ICLR 2025 (poster).
 
+🚩 News (2025.10) We provide [create_graph.py](https://github.com/decisionintelligence/Air-DualODE/tree/main/Run/create_graph.py) for generating the graph_data.npz file on other air quality datasets. Feel free to test Air-DualODE on different datasets.
+
 ![image-20250225200329134](./fig/Air-DualODE.png)
 
 ## Requirement
